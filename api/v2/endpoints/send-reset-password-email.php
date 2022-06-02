@@ -22,7 +22,7 @@ if (empty($error_code)) {
     } else {
     	$user_recover_data         = Wo_UserData(Wo_UserIdFromEmail($_POST['email']));
         $subject                   = $config['siteName'] . ' ' . $wo['lang']['password_rest_request'];
-        $user_recover_data['link'] = Wo_Link('index.php?link1=reset-password&code=' . $user_recover_data['user_id'] . '_' . $user_recover_data['password']);
+        $user_recover_data['link'] = Wo_LinkUrl('index.php?link1=reset-password&code=' . $user_recover_data['user_id'] . '_' . $user_recover_data['password']);
         $wo['recover']             = $user_recover_data;
         $body                      = Wo_LoadPage('emails/recover');
         $send_message_data         = array(

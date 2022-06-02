@@ -596,7 +596,7 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                                     <a href="<?php echo $wo['user']['url']; ?>" class="btn btn-outline-light btn-rounded">View Profile</a>
                                 </div>
                                 <div class="list-group">
-                                    <a href="<?php echo(Wo_Link('logout')) ?>" class="list-group-item text-danger">Sign Out!</a>
+                                    <a href="<?php echo(Wo_LinkUrl('logout')) ?>" class="list-group-item text-danger">Sign Out!</a>
                                     <?php if ($mode == 'night') { ?>
                                         <a href="javascript:void(0)" class="list-group-item admin_mode" onclick="ChangeMode('day')">
                                             <span id="night-mode-text">Day mode</span>

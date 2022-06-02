@@ -1,13 +1,13 @@
 <?php
-$themeName = 'WoWonder';
+$themeName = 'Searching Tag';
 
-$themeFolder = 'wowonder';
+$themeFolder = 'searchingtag';
 
-$themeAuthor = 'Deen Doughouz';
+$themeAuthor = 'Byterays Technology';
 
-$themeAuthorUrl = 'mailto:wowondersocial@gmail.com';
+$themeAuthorUrl = 'mailto:info@byterays.com';
 
-$themeVirsion = '2.5';
+$themeVirsion = '1.0';
 
 $themeImg = $themeFolder . '/themeLogo.png';
 ?>

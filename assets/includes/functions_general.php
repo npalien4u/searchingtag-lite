@@ -660,7 +660,7 @@ function Wo_IsLogged() {
 function Wo_Redirect($url) {
     return header("Location: {$url}");
 }
-function Wo_Link($string) {
+function Wo_LinkUrl($string) {
     global $site_url;
     return $site_url . '/' . $string;
 }
