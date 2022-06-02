@@ -1,13 +1,5 @@
 <?php
-// +------------------------------------------------------------------------+
-// | @author Deen Doughouz (DoughouzForest)
-// | @author_url 1: http://www.wowonder.com
-// | @author_url 2: http://codecanyon.net/user/doughouzforest
-// | @author_email: wowondersocial@gmail.com
-// +------------------------------------------------------------------------+
-// | WoWonder - The Ultimate Social Networking Platform
-// | Copyright (c) 2022 WoWonder. All rights reserved.
-// +------------------------------------------------------------------------+
+
 function sanitize_output($buffer) {
     $search  = array(
         '/\>[^\S ]+/s', // strip whitespaces after tags, except space
@@ -89,15 +81,19 @@ function Wo_CustomCode($a = false, $code = array()) {
     return $result;
 }
 function Wo_LoadAdminPage($page_url = '') {
+    
     global $wo, $db;
-    $page         = './admin-panel/pages/' . $page_url . '.phtml';
+    $page         = '/admin-panel/pages/' . $page_url . '.phtml';
     $page_content = '';
+       
     ob_start();
     require($page);
     $page_content = ob_get_contents();
     ob_end_clean();
+  
     return $page_content;
 }
+
 function Wo_LoadAdminLinkSettings($link = '') {
     global $site_url;
     return $site_url . '/admin-cp/' . $link;
@@ -932,46 +928,7 @@ function Wo_Time_Elapsed_String($ptime) {
     } else {
         return substitute($wo['lang']['_time_yrs'], round($years));
     }
-    // $a        = array(
-    //     365 * 24 * 60 * 60 => $wo['lang']['year'],
-    //     30 * 24 * 60 * 60 => $wo['lang']['month'],
-    //     24 * 60 * 60 => $wo['lang']['day'],
-    //     60 * 60 => $wo['lang']['hour'],
-    //     60 => $wo['lang']['minute'],
-    //     1 => $wo['lang']['second']
-    // );
-    // $a_plural = array(
-    //     $wo['lang']['year'] => $wo['lang']['years'],
-    //     $wo['lang']['month'] => $wo['lang']['months'],
-    //     $wo['lang']['day'] => $wo['lang']['days'],
-    //     $wo['lang']['hour'] => $wo['lang']['hours'],
-    //     $wo['lang']['minute'] => $wo['lang']['minutes'],
-    //     $wo['lang']['second'] => $wo['lang']['seconds']
-    // );
-    // foreach ($a as $secs => $str) {
-    //     $d = $etime / $secs;
-    //     if ($d >= 1) {
-    //         $r = round($d);
-    //         if ($wo['language_type'] == 'rtl') {
-    //             //$time_ago = $wo['lang']['time_ago'] . ' ' . $r . ' ' . ($r > 1 ? $a_plural[$str] : $str);
-    //             if ($secs > 1) {
-    //                 $time_ago = $r . ' ' . ($r > 1 ? $a_plural[$str] : $str);
-    //             }
-    //             else{
-    //                 $time_ago = $wo['lang']['now'];
-    //             }
-    //         } else {
-    //             //$time_ago = $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ' . $wo['lang']['time_ago'];
-    //             if ($secs > 1) {
-    //                 $time_ago = $r . ' ' . ($r > 1 ? $a_plural[$str] : $str);
-    //             }
-    //             else{
-    //                 $time_ago = $wo['lang']['now'];
-    //             }
-    //         }
-    //         return $time_ago;
-    //     }
-    // }
+    
 }
 function Wo_FolderSize($dir) {
     $count_size = 0;

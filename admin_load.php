@@ -41,9 +41,15 @@ unset($files[0]);
 unset($files[1]);
 unset($files[2]);
 $page = 'dashboard';
+
+
+
+
 if (!empty($path['page']) && in_array($path['page'], $files) && file_exists('admin-panel/pages/' . $path['page'] . '/content.phtml')) {
     $page = $path['page'];
 }
+
+
 $wo['user']['permission'] = json_decode($wo['user']['permission'], true);
 if (!empty($wo['user']['permission'][$page])) {
   if (!empty($wo['user']['permission']) && $wo['user']['permission'][$page] == 0) {
@@ -63,7 +69,14 @@ $wo['decode_ios_value']  = base64_decode('I2FhYQ==');
 $wo['decode_windwos_v']  = $wo['config']['footer_text_color'];
 $wo['decode_windwos_value']  = base64_decode('I2RkZA==');
 $data = array();
+
+
 $text = Wo_LoadAdminPage($page . '/content');
+
+
+echo $page;
+
+exit;
 ?>
 <input type="hidden" id="json-data" value='<?php
 echo htmlspecialchars(json_encode($data));
