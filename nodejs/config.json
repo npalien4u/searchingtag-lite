@@ -2,7 +2,7 @@
     "sql_db_host": "localhost",
     "sql_db_user": "root",
     "sql_db_pass": "",
-    "sql_db_name": "wowonder",
-    "site_url": "http://localhost/wowonder",
-    "purchase_code": "87b008d4-eeab-4e82-9363-99f048ca197f"
+    "sql_db_name": "searchingtag_lite_1",
+    "site_url": "http://searchingtag-lite.lab",
+    "purchase_code": "1234567890"
 }
