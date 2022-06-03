@@ -1,4 +1,5 @@
 <?php
+
 require_once('assets/init.php');
 $is_admin     = Wo_IsAdmin();
 $is_moderoter = Wo_IsModerator();
