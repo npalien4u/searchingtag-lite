@@ -2,7 +2,7 @@
     "sql_db_host": "localhost",
     "sql_db_user": "root",
     "sql_db_pass": "",
-    "sql_db_name": "searchingtag_lite_1",
+    "sql_db_name": "searchingtag_lite_2",
     "site_url": "http://searchingtag-lite.lab",
     "purchase_code": "1234567890"
 }

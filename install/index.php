@@ -41,8 +41,7 @@ if (!empty($_POST['install'])) {
    if (empty($_POST['admin_username']) || empty($_POST['admin_password'])) {
        $ServerErrors[] = "Please provide right admin username/password";
    }
-   $purchase_code = "1234567890";
-   $p = check_(trim($purchase_code));
+   $p = check_(trim($_POST['purshase_code']));
    if (isset($p['status'])) {
       if ($p['status'] == 'ERROR') {
         $ServerErrors[] = $p['ERROR_NAME'];
@@ -57,11 +56,19 @@ if (!empty($_POST['install'])) {
     "sql_db_pass": "' . $_POST['sql_pass'] . '",
     "sql_db_name": "' . $_POST['sql_name'] . '",
     "site_url": "' . $_POST['site_url'] . '",
-    "purchase_code": "' . trim($purchase_code) . '"
+    "purchase_code": "' . trim($_POST['purshase_code']) . '"
 }';
       $file_content =
 '<?php
-
+// +------------------------------------------------------------------------+
+// | @author Deen Doughouz (DoughouzForest)
+// | @author_url 1: http://www.wowonder.com
+// | @author_url 2: http://codecanyon.net/user/doughouzforest
+// | @author_email: wowondersocial@gmail.com
+// +------------------------------------------------------------------------+
+// | WoWonder - The Ultimate PHP Social Networking Platform
+// | Copyright (c) 2016 WoWonder. All rights reserved.
+// +------------------------------------------------------------------------+
 // MySQL Hostname
 $sql_db_host = "'  . $_POST['sql_host'] . '";
 // MySQL Database User
@@ -75,7 +82,7 @@ $sql_db_name = "'  . $_POST['sql_name'] . '";
 $site_url = "' . $_POST['site_url'] . '"; // e.g (http://example.com)
 
 // Purchase code
-$purchase_code = "' . trim($purchase_code) . '"; // Your purchase code, don\'t give it to anyone.
+$purchase_code = "' . trim($_POST['purshase_code']) . '"; // Your purchase code, don\'t give it to anyone.
 ?>';
 $success = '';
 $config_file = file_put_contents($config_file_name, $file_content);
@@ -84,7 +91,7 @@ if (file_exists('../htaccess.txt')) {
   $htaccess = @file_put_contents('../.htaccess', file_get_contents('../htaccess.txt'));
 }
     if ($config_file && $node_file) {
-        $filename = '../searchingtag.sql';
+        $filename = '../wowonder.sql';
         // Temporary variable, used to store current query
         $templine = '';
         // Read in entire file
@@ -106,7 +113,7 @@ if (file_exists('../htaccess.txt')) {
            }
         }
         if ($query) {
-          $p2 = check_success(trim($purchase_code));
+          $p2 = check_success(trim($_POST['purshase_code']));
           if(isset($p2['status'])) {
             if ($p2['status'] == 'SUCCESS') {
               $can = 1;
@@ -114,27 +121,27 @@ if (file_exists('../htaccess.txt')) {
           }
           $con1 = mysqli_connect($_POST['sql_host'], $_POST['sql_user'], $_POST['sql_pass'], $_POST['sql_name']);
            if ($can == 1) {
-              $query_one = mysqli_query($con1, "UPDATE `Config` SET `value` = '" . mysqli_real_escape_string($con1, 1). "' WHERE `name` = 'is_ok'");
+              $query_one = mysqli_query($con1, "UPDATE `Wo_Config` SET `value` = '" . mysqli_real_escape_string($con1, 1). "' WHERE `name` = 'is_ok'");
            } else {
               $query_one = mysqli_query($con1, "DROP TABLE Wo_Config");
               $query_one = mysqli_query($con1, "DROP TABLE Wo_Users");
               $ServerErrors[] = "Error found while installing, please contact us.";
            }
-           $query_one = mysqli_query($con1, "UPDATE `Config` SET `value` = '" . mysqli_real_escape_string($con1, md5(microtime())). "' WHERE `name` = 'widnows_app_api_id'");
-           $query_one = mysqli_query($con1, "UPDATE `Config` SET `value` = '" . mysqli_real_escape_string($con1, md5(time())). "' WHERE `name` = 'widnows_app_api_key'");
-           $query_one  = mysqli_query($con1, "UPDATE `Config` SET `value` = '" . mysqli_real_escape_string($con1, $_POST['siteName']). "' WHERE `name` = 'siteName'");
-           $query_one .= mysqli_query($con1, "UPDATE `Config` SET `value` = '" . mysqli_real_escape_string($con1, $_POST['siteTitle']). "' WHERE `name` = 'siteTitle'");
-           $query_one .= mysqli_query($con1, "UPDATE `Config` SET `value` = '" . mysqli_real_escape_string($con1, $_POST['siteEmail']). "' WHERE `name` = 'siteEmail'");
+           $query_one = mysqli_query($con1, "UPDATE `Wo_Config` SET `value` = '" . mysqli_real_escape_string($con1, md5(microtime())). "' WHERE `name` = 'widnows_app_api_id'");
+           $query_one = mysqli_query($con1, "UPDATE `Wo_Config` SET `value` = '" . mysqli_real_escape_string($con1, md5(time())). "' WHERE `name` = 'widnows_app_api_key'");
+           $query_one  = mysqli_query($con1, "UPDATE `Wo_Config` SET `value` = '" . mysqli_real_escape_string($con1, $_POST['siteName']). "' WHERE `name` = 'siteName'");
+           $query_one .= mysqli_query($con1, "UPDATE `Wo_Config` SET `value` = '" . mysqli_real_escape_string($con1, $_POST['siteTitle']). "' WHERE `name` = 'siteTitle'");
+           $query_one .= mysqli_query($con1, "UPDATE `Wo_Config` SET `value` = '" . mysqli_real_escape_string($con1, $_POST['siteEmail']). "' WHERE `name` = 'siteEmail'");
 
 
-           $query_onde = mysqli_query($con1, "INSERT INTO `Users` (
+           $query_onde = mysqli_query($con1, "INSERT INTO `Wo_Users` (
             `username`,`password`, `email`, `admin`, `active`, `verified`, `registered`, `start_up`, `start_up_info`, `startup_follow`, `startup_image`, `joined`)
             VALUES ('" . mysqli_real_escape_string($con1, $_POST['admin_username']). "', '" . mysqli_real_escape_string($con1, sha1($_POST['admin_password'])) . "','" . mysqli_real_escape_string($con1, $_POST['siteEmail']) . "'
                 ,'1', '1', '1', '00/0000', '1', '1', '1', '1', '" . time() . "')");
            //$_SESSION['user_id'] = Wo_CreateLoginSession(1);
            if (function_exists('apache_get_modules')) {
              if (!in_array('mod_rewrite', apache_get_modules())) {
-                $query_one .= mysqli_query($con1, "UPDATE `Config` SET `value` = '" . mysqli_real_escape_string($con, 0). "' WHERE `name` = 'seoLink'");
+                $query_one .= mysqli_query($con1, "UPDATE `Wo_Config` SET `value` = '" . mysqli_real_escape_string($con, 0). "' WHERE `name` = 'seoLink'");
              }
            }
             // chmod general config file
@@ -144,7 +151,7 @@ if (file_exists('../htaccess.txt')) {
             //chmod upload folder
             @chmod("./upload", 0777);
 
-           $success = 'SearchingTag successfully installed, please wait ..';
+           $success = 'WoWonder successfully installed, please wait ..';
         } else {
           $ServerErrors[] = "Error found while installing, please contact us.";
         }
@@ -156,11 +163,11 @@ if (file_exists('../htaccess.txt')) {
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Searching Tag | Installation</title>
-        <link rel="shortcut icon" type="image/png" href="../themes/searchingtag/img/icon.png"/>
-        <link rel="stylesheet" href="../themes/searchingtag/stylesheet/general-style-plugins.css">
+        <title>WoWonder | Installation</title>
+        <link rel="shortcut icon" type="image/png" href="../themes/wowonder/img/icon.png"/>
+        <link rel="stylesheet" href="../themes/wowonder/stylesheet/general-style-plugins.css">
         <link rel="stylesheet" href="style.css">
-        <script type="text/javascript" src="../themes/searchingtag/javascript/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../themes/wowonder/javascript/jquery-3.1.1.min.js"></script>
     </head>
 
         <?php
@@ -234,7 +241,7 @@ if (file_exists('../htaccess.txt')) {
             $is_htaccess = false;
             $disabled = true;
             }
-            if (!file_exists('../searchingtag.sql')) {
+            if (!file_exists('../wowonder.sql')) {
             $is_sql = false;
             $disabled = true;
             }
@@ -356,8 +363,8 @@ if (file_exists('../htaccess.txt')) {
                         <td><?php echo ($is_htaccess == true) ? '<font color="green"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M9.707 17.707l10-10-1.414-1.414L9 15.586l-4.293-4.293-1.414 1.414 5 5a.997.997 0 0 0 1.414 0z"/></svg> Uploaded</font>' : '<font color="red"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 18.707L12 13.414l5.293 5.293 1.414-1.414L13.414 12l5.293-5.293-1.414-1.414L12 10.586 6.707 5.293 5.293 6.707 10.586 12l-5.293 5.293z"/></svg> Not uploaded</font>'?></td>
                       </tr>
                       <tr>
-                        <td>searchingtag.sql</td>
-                        <td>Required searchingtag.sql for the installation <small>(Located in ./Script)</small></td>
+                        <td>wowonder.sql</td>
+                        <td>Required wowonder.sql for the installation <small>(Located in ./Script)</small></td>
                         <td><?php echo ($is_sql == true) ? '<font color="green"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M9.707 17.707l10-10-1.414-1.414L9 15.586l-4.293-4.293-1.414 1.414 5 5a.997.997 0 0 0 1.414 0z"/></svg> Uploaded</font>' : '<font color="red"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6.707 18.707L12 13.414l5.293 5.293 1.414-1.414L13.414 12l5.293-5.293-1.414-1.414L12 10.586 6.707 5.293 5.293 6.707 10.586 12l-5.293 5.293z"/></svg> Not uploaded</font>'?></td>
                       </tr>
                       <tr>
@@ -380,7 +387,7 @@ if (file_exists('../htaccess.txt')) {
                                 </div>
                                 <?php } else if ($page == 'finish') { ?>
                                 <div class="req">
-                                    <p>Congratulations! SearchingTag script has been successfully installed and your website is ready.</p>
+                                    <p>Congratulations! WoWonder script has been successfully installed and your website is ready.</p>
                   <p>Login to your admin panel to make changes and modify any default content according to your needs.</p>
                   <br>
                   <p>If you have any question, please <a href="mailto:wowondersocial@gmail.com" class="main">let us know</a>.</p>
@@ -408,7 +415,14 @@ if (file_exists('../htaccess.txt')) {
                     </div>
                   <?php } ?>
                   <form action="?page=installation" method="post" class="form-horizontal install-site-setting">
-                                       
+                                        <div class="form-group">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" name="purshase_code" value="<?php echo (!empty($_POST['purshase_code'])) ? trim($_POST['purshase_code']) : '';?>" placeholder="Purchase code" autofocus>
+                                                <span class="help-block">Enter anything here, it's a nulled! via <a target="_blank" href="https://bit.ly/2QCCRlD">FREE SCRIPT'S</a>.</span>
+                                            </div>
+                      <div class="col-md-2"></div>
+                                        </div>
                                         <div class="form-group">
                       <div class="col-md-2"></div>
                                             <div class="col-md-8">
