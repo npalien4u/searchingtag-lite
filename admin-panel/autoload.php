@@ -1425,48 +1425,6 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                         </ul>
                     </li>
                     <?php } ?>
-                    <?php if ($is_admin || ($is_moderoter && ($wo['user']['permission']['manage-updates'] == 1))) { ?>
-                    <li <?php echo ($page == 'manage-updates') ? 'class="active"' : ''; ?>>
-                        <a href="#">
-                            <span class="nav-link-icon">
-                                <i class="material-icons">cloud_download</i>
-                            </span>
-                            <span>Updates</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <?php if ($is_admin || ($is_moderoter && $wo['user']['permission']['manage-updates'] == 1)) { ?>
-                            <li>
-                                <a <?php echo ($page == 'manage-updates') ? 'class="active"' : ''; ?> href="<?php echo Wo_LoadAdminLinkSettings('manage-updates'); ?>" data-ajax="?path=manage-updates">Updates & Bug Fixes</a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                    <?php } ?>
-                    <?php if ($is_admin || ($is_moderoter && ($wo['user']['permission']['changelog'] == 1))) { ?>
-                    <li>
-                        <a <?php echo ($page == 'changelog') ? 'class="active"' : ''; ?> href="<?php echo Wo_LoadAdminLinkSettings('changelog'); ?>" data-ajax="?path=changelog">
-                            <span class="nav-link-icon">
-                                <i class="material-icons">update</i>
-                            </span>
-                            <span>Changelogs</span>
-                        </a>
-                    </li>
-                    <?php } ?>
-                    <?php if ($is_admin == true) { ?>
-                    <li>
-                        <a href="http://docs.wowonder.com/#faq" target="_blank">
-                            <span class="nav-link-icon">
-                                <i class="material-icons">more_vert</i>
-                            </span>
-                            <span>FAQs</span>
-                        </a>
-                    </li>
-                    <?php } ?>
-                    <a class="pow_link" href="https://bit.ly/2R2jrcz" target="_blank">
-                        <p>Powered by</p>
-                        <img src="https://demo.wowonder.com/themes/default/img/logo.png">
-                        <b class="badge">v<?php echo $wo['config']['version'];?></b>
-                    </a>
                 </ul>
             </div>
         </div>
