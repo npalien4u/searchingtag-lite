@@ -9,7 +9,7 @@ $sql_db_pass = "";
 // MySQL Database Name
 //$sql_db_name = "searchingtag_lite_2";
 // $sql_db_name = "searchingtag_lite_3";
-$sql_db_name = "searchingtag_lite_4";
+$sql_db_name = "searchingtag_lite_3";
 
 // Site URL
 $site_url = "http://searchingtag-lite.lab"; 
